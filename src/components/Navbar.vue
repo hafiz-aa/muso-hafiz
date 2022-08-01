@@ -4,20 +4,26 @@
       <img src="@/assets/logo.jpg">
       <h1><router-link :to="{ name: 'Home' }">Muso Hafiz</router-link></h1>
       <div class="links">
-        <button @click="handleClick">Log Out</button>
-        <router-link class="btn" :to="{ name: 'Signup'}">Sign Up</router-link>
-        <router-link class="btn" :to="{ name: 'Login'}">Log In</router-link>
-      </div>
+        <div v-if="user">
+          <button @click="handleClick">Log Out</button>
+        </div>
+        <div v-else>
+          <router-link class="btn" :to="{ name: 'Signup'}">Sign Up</router-link>
+          <router-link class="btn" :to="{ name: 'Login'}">Log In</router-link>
+        </div>
+        </div>
     </nav>
   </div>
 </template>
 
 <script>
 import useLogout from '@/composables/useLogout'
+import getUser from '@/composables/getUser'
 import { useRouter } from 'vue-router'
 
 export default {
   setup() {
+    const { user } = getUser()
     const { logout } = useLogout()
     const router = useRouter()
 
@@ -26,7 +32,7 @@ export default {
       console.log('user logged out')
       router.push({ name: 'Login'})
     }
-    return { handleClick }
+    return { handleClick, user }
   }
 }
 </script>
