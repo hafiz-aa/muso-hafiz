@@ -18,7 +18,7 @@ const useCollection = (collection) => {
     catch(err) {
       console.log(err.message)
       error.value = 'could not send the message'
-      isPending.value = falses
+      isPending.value = false
     }
   }
 
